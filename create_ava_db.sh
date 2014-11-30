@@ -9,12 +9,12 @@ DATA=input_txt
 TOOLS=$HOME/caffe/build/tools
 
 # set the path to the ava train + val data dirs
-TRAIN_DATA_ROOT=../ava/
-VAL_DATA_ROOT=../ava/
+TRAIN_DATA_ROOT=../ava_resized_extreme/
+VAL_DATA_ROOT=../ava_resized_extreme/
 
 # Set RESIZE=true to resize the images to 256x256. Leave as false if images have
 # already been resized using another tool.
-RESIZE=true
+RESIZE=false
 if $RESIZE; then
   RESIZE_HEIGHT=256
   RESIZE_WIDTH=256
@@ -39,22 +39,15 @@ fi
 
 echo "Creating train lmdb..."
 
-GLOG_logtostderr=1 $TOOLS/convert_imageset.bin \
-    --resize_height=$RESIZE_HEIGHT \
-    --resize_width=$RESIZE_WIDTH \
-    --shuffle \
-    $TRAIN_DATA_ROOT \
-    $DATA/train.txt \
-    ava_train_lmdb
+
 
 echo "Creating val lmdb..."
 
 GLOG_logtostderr=1 $TOOLS/convert_imageset.bin \
     --resize_height=$RESIZE_HEIGHT \
     --resize_width=$RESIZE_WIDTH \
-    --shuffle \
     $VAL_DATA_ROOT \
-    $DATA/val.txt \
+    $DATA/val_extreme.txt \
     ava_val_lmdb
 
 echo "Done."

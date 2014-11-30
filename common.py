@@ -4,6 +4,7 @@ import fileinput
 import urllib
 import os
 import bs4
+import re
 
 def get_avg(cells):
 	sum = 0;
@@ -58,5 +59,21 @@ def download_image(line):
 			src = img.get('src')
 			print "Current src is " + src
 			urllib.urlretrieve(src, "../ava/"+cells[0]+"-"+id+'.jpg')
+			print cells[0]+": Photo " + id + " downloaded" 
+
+def download_image_by_filename(fileName):
+	cells = re.findall(r"\d+", fileName)
+	if(os.path.exists("../ava/"+fileName)):
+		print fileName + " already downloaded"
+		return
+	id = cells[1]
+	url = "http://www.dpchallenge.com/image.php?IMAGE_ID="+id
+	print "url is " + url
+	code = urllib.urlopen(url).read()
+	imgurls=re.findall('img .*?src="(.*?)"',code)
+	print imgurls
+	for imgurl in imgurls:
+		if("Copyrighted" in imgurl and id in imgurl):
+			urllib.urlretrieve(imgurl, "../ava/"+fileName)
 			print cells[0]+": Photo " + id + " downloaded" 
 			

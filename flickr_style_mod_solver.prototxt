@@ -1,0 +1,17 @@
+net: "flickr_style_mod.prototxt"
+test_iter: 40
+test_interval: 200
+# lr for fine-tuning should be lower than when starting from scratch
+base_lr: 0.001
+lr_policy: "step"
+gamma: 0.1
+# stepsize should also be lower, as we're closer to being done
+stepsize: 7000
+display: 1 
+max_iter: 100000
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 500
+snapshot_prefix: "snapshots_flickr"
+# uncomment the following to default to CPU mode solving
+solver_mode: GPU

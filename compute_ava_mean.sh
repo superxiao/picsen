@@ -5,6 +5,6 @@ $HOME/caffe/build/tools/compute_image_mean.bin \
 ava_train_lmdb ava_train_mean.binaryproto lmdb
 
 $HOME/caffe/build/tools/compute_image_mean.bin \
-ava_val_lmdb ava_test_mean.binaryproto lmdb
+ava_val_lmdb ava_val_mean.binaryproto lmdb
 
 echo "Done."
